@@ -1,28 +1,18 @@
-const express= require('express')
-const cors= require('cors')
-const bodyParser = require('body-parser')
-const router= require('./routers/router')
-const mongoose= require('mongoose')
-require('dotenv/config');
-const app= express()
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+import App from './App';
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:false}))
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  </React.StrictMode>
+);
 
-const corsOptions={
-    origin:'*',
-    credentials:true,
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions))
-app.use('/',router);
-
-const dbOptions= {useNewUrlParser:true, useUnifiedTopology:true}
-mongoose.connect(process.env.DB_URI,dbOptions)
-.then(()=>console.log("data base connected alali"))
-.catch(err=>console.log(err))
-
-const port = process.env.PORT || 4000
-const server = app.listen(port,()=>{
-    console.log(`server is running on port ${port}`)
-})
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
